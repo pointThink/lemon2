@@ -1,0 +1,13 @@
+C:\Users\User\cs\Lemon2\bin\Debug\netcoreapp3.1\Lemon2.exe
+C:\Users\User\cs\Lemon2\bin\Debug\netcoreapp3.1\Lemon2.deps.json
+C:\Users\User\cs\Lemon2\bin\Debug\netcoreapp3.1\Lemon2.runtimeconfig.json
+C:\Users\User\cs\Lemon2\bin\Debug\netcoreapp3.1\Lemon2.runtimeconfig.dev.json
+C:\Users\User\cs\Lemon2\bin\Debug\netcoreapp3.1\Lemon2.dll
+C:\Users\User\cs\Lemon2\bin\Debug\netcoreapp3.1\Lemon2.pdb
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.csprojAssemblyReference.cache
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.AssemblyInfoInputs.cache
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.AssemblyInfo.cs
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.csproj.CoreCompileInputs.cache
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.dll
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.pdb
+C:\Users\User\cs\Lemon2\obj\Debug\netcoreapp3.1\Lemon2.genruntimeconfig.cache
