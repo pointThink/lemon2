@@ -1,6 +1,7 @@
 using System;
 using System.IO;
-using System.Globalization;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Lemon2.Command.Commands {
 
@@ -24,15 +25,12 @@ namespace Lemon2.Command.Commands {
 
             } else if (args[1] == "time") {
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Current Date and Time is : ");  
-                Console.ResetColor();
-                DateTime now = DateTime.Now;  
-                Console.WriteLine(now);
+                DateTime now = DateTime.Now; 
+                showInfo("The current time is", now.ToString());
 
             } else if (args[1] == "cmd") {
 
-                foreach (CommandBase c in Lemon2.Program.cmds) {
+                foreach (CommandBase c in Lemon2.Program.Cmds) {
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write(c.name + ": ");
@@ -43,8 +41,39 @@ namespace Lemon2.Command.Commands {
 
                 }
 
+            } else if (args[1] == "net") {
+
+                showInfo("Host name", Environment.GetEnvironmentVariable("COMPUTERNAME"));
+                showInfo("IP Address", getIp());
+
             }
             
         }
+
+        private void showInfo(string i, string i2) {
+
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            Console.Write(i + ":");
+            Console.ResetColor();
+            Console.WriteLine(" " + i2);
+
+        }
+
+        private string getIp() {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+
+            return "reeeeeee";
+
+        }
+
     }
 }
