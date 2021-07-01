@@ -16,4 +16,4 @@ An open-source terminal shell for windows. C# Rewrite of previous project lemon-
 - BEEP
 
 ### Compiling
-Simply use "dotnet run"
+Simply use "dotnet build"
