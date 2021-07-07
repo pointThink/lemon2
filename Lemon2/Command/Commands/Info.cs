@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
+using Lemon2;
+
 namespace Lemon2.Command.Commands {
 
     public class Info : CommandBase {

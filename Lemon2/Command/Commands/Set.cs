@@ -6,7 +6,7 @@
 
         public override void onCommand(string[] args) {
             
-            Variables.Variables.Set(args[0], args[1]);
+            Variables.Variables.Set(args[1], args[2]);
             
         }
     }

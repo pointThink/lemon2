@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-
+using System.Text;
 using Lemon2.Command;
 using Lemon2.Command.Commands;
 
@@ -10,30 +11,33 @@ namespace Lemon2 {
 
     class Program {
 
-        public static string Version = "0.1.0";
-        public static string Authors = "pointThink";
+        static string Version = "0.3.0";
+        static string Authors = "pointThink";
 
-        public static List<CommandBase> cmds = new List<CommandBase>();
+        public static List<CommandBase> Cmds = new List<CommandBase>();
 
-        static void Main(string[] args) {
+        static void Main() {
 
+            Console.Clear();
             Console.Title = "Lemon2";
 
             // Adding commands
-            cmds.Add(new Exit());
-            cmds.Add(new CD());
-            cmds.Add(new LS());
-            cmds.Add(new Delete());
-            cmds.Add(new Mk());
-            cmds.Add(new Move());
-            cmds.Add(new Task());
-            cmds.Add(new Clear());
-            cmds.Add(new Info());
-            cmds.Add(new Beep());
-
-            Console.WriteLine("Setup complete");
-            Console.Beep();
-            Console.WriteLine();
+            Cmds.Add(new PWD());
+            Cmds.Add(new Set());
+            Cmds.Add(new Exit());
+            Cmds.Add(new CD());
+            Cmds.Add(new LS());
+            Cmds.Add(new Delete());
+            Cmds.Add(new Mk());
+            Cmds.Add(new Move());
+            Cmds.Add(new Task());
+            Cmds.Add(new Clear());
+            Cmds.Add(new Info());
+            Cmds.Add(new Beep());
+            Cmds.Add(new Drives());
+            Cmds.Add(new Download());
+            Cmds.Add(new Mail());
+            Cmds.Add(new LZip());
 
             Console.WriteLine("Lemon2 v" + Version);
             Console.WriteLine("By " + Authors);
@@ -42,6 +46,8 @@ namespace Lemon2 {
             while (true) {
 
                 string inp = InputPrompt();
+                inp = Variables.Variables.Replace(inp);
+                
                 Console.WriteLine();
 
                 try {
@@ -57,12 +63,12 @@ namespace Lemon2 {
                 }  catch(Exception e) {
 
                     // Shows error when exception occurs
-                    Utils.showError("Problem in program\n" + e.ToString());
+                    Utils.showError("Problem in program\n" + e);
                     Console.WriteLine();
                 }
 
             }
-             
+            
         }
 
         static string InputPrompt() {
@@ -78,11 +84,11 @@ namespace Lemon2 {
             Console.Write(Directory.GetCurrentDirectory());
 
             Console.ResetColor();
-            Console.Write("] ");
+            Console.Write("]");
 
             // Input char
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("$ ");
+            Console.Write("\n$ ");
 
             Console.ResetColor();
 
@@ -91,18 +97,18 @@ namespace Lemon2 {
 
         }     
 
-        static void Execute(string cmd) {
+        public static void Execute(string cmd) {
 
             string[] args = Utils.ParseArguments(cmd);
             
             CommandBase c = Utils.getCommandByName(args[0]);
 
-            // If command returned by Utils.getCommandName() is null
-            // the program will attempt to run an executable file
+            /* If command returned by Utils.getCommandName() is null
+            the program will attempt to run an executable file */
             if (c != null) {
                 c.onCommand(args);
 
-            } else if (c == null) {
+            } else {
 
                 try {
 
@@ -116,20 +122,23 @@ namespace Lemon2 {
 
                     p.Start();
 
+                    // On the fly output writing
                     while (!p.StandardOutput.EndOfStream) {
                         Console.WriteLine(p.StandardOutput.ReadLine());
                     }
 
-                } catch(FileNotFoundException) {
+                } catch(Win32Exception) {
 
-                    // If the FileNotFound exception occurs the program knows the file does not exits
-                    // and was probably an invalid command
+                    /* If the FileNotFound exception occurs the program knows the file does not exits
+                    and was probably an invalid command */
                     Utils.showError("Command or executable file not found");
 
                 }
+                
             }
 
         } 
 
     }
 }
+

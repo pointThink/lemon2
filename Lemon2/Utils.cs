@@ -1,17 +1,28 @@
 using System;
 using System.IO;
-
+using System.Collections.Generic;
+using System.Linq;
 using Lemon2.Command;
 
 namespace Lemon2 {
 
     public class Utils {
+
+        public static string ReadFile(string path) {
+
+            StreamReader f = new StreamReader(path);
+            string s = f.ReadToEnd();
+            f.Close();
+
+            return s;
+
+        }
         
         public static CommandBase getCommandByName(string name) {
 
             CommandBase retCmd = null;
 
-            foreach (CommandBase c in Program.cmds) {
+            foreach (CommandBase c in Program.Cmds) {
 
                 if (c.name.ToLower() == name.ToLower())
                     retCmd = c;
@@ -33,7 +44,9 @@ namespace Lemon2 {
                 if (!inQuote && parmChars[index] == ' ')
                     parmChars[index] = '\n';
             }
-            return (new string(parmChars)).Replace("\"", "").Split('\n');
+
+            string str = new String(parmChars);
+            return str.Replace("\"", "").Split('\n');
 
         }
 
@@ -43,7 +56,7 @@ namespace Lemon2 {
             Console.Beep();
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(e);
+            Console.WriteLine("Lemon: " + e);
             Console.ResetColor();
 
         } 
@@ -82,6 +95,43 @@ namespace Lemon2 {
             }
 
             return rBool;
+
+        }
+
+        public static void ValueWrite(ConsoleColor c1, string s1, string s2) {
+
+            Console.ForegroundColor = c1;
+            Console.Write(s1);
+
+            Console.ResetColor();
+            Console.WriteLine(s2);
+
+        }
+
+        public static string MultiLineInput() {
+
+            Console.WriteLine("To end input write :done:");
+            Console.WriteLine();
+            
+            bool done = false;
+            List<String> ret = new List<string>();
+            
+            while (!done) {
+
+                string input = Console.ReadLine();
+
+                if (input == ":done:") {
+                    done = true;
+                    break;
+
+                } else {
+                    ret.Add(input);
+
+                }
+
+            }
+
+            return String.Join("\n", ret.ToArray());
 
         }
 
